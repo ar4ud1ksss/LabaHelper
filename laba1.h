@@ -211,9 +211,8 @@ int Compute (FILE* input, FILE* output, float length, int num, FILE* CSV, float 
 
     assert (errorR > 0);
 
-    
     float rTotal = 0;
-	TotalR (resistanceAvg, &rTotal, ro, square , length);
+    TotalR (resistanceAvg, &rTotal, ro, square , length);
 
     assert (rTotal > 0);
 
@@ -263,15 +262,14 @@ int ReadAndCheck (float U[], float I[], int size, FILE* input)
 	    {
 	    assert ((0 <= line) && (line < size));
 
-        fgets (str, sizeof (str) - 1, input);
+            fgets (str, sizeof (str) - 1, input);
 
-        int check = sscanf (str,"%f %f", &U[line], &I[line]);
+            int check = sscanf (str,"%f %f", &U[line], &I[line]);
 
-        assert ((check >= -1) && (check <= 2));
+            assert ((check >= -1) && (check <= 2));
 
-        if (check != 2) return (line + 1);
-         
-	    }
+            if (check != 2) return (line + 1);
+            }
 
     return (0);
     }
@@ -305,29 +303,29 @@ int CheckData (float U[], float I[])
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count square of wire
-	\details Funcion read file with value of diameter and process data
-	\param S 
-	Value square of wire
-	\param errorS 
-	Value error for square
+    \brief
+    Funcion that count square of wire
+    \details Funcion read file with value of diameter and process data
+    \param S 
+    Value square of wire
+    \param errorS 
+    Value error for square
     \param diameter
     File with data of diameter   
 */
 
 int Diameter (float* s, float* errorS, FILE* diameter)
-	{	
+    {	
     float D[NumD] = {} ;
-	float sumD = 0, dAvg = 0;
+    float sumD = 0, dAvg = 0;
     
     char str[1024] = "";
 	
     for (int line = 0; line < NumD; line++)
-		{
+	{
         fgets (str, sizeof (str) - 1, diameter);
 
-		int check = sscanf (str,"%f", &D[line]);
+	int check = sscanf (str,"%f", &D[line]);
 
         assert (check >= -1);        
 
@@ -337,17 +335,17 @@ int Diameter (float* s, float* errorS, FILE* diameter)
             return (ERROR2);
             }        
             
-		sumD += D[line];
-		}
+	sumD += D[line];
+	}
 	
 	dAvg = sumD / NumD;
 	*s = Pi * dAvg * dAvg * 100 / 4;
 	*errorS = 2 * ErrorD / dAvg;
 
-    assert ((*s > 0) && (*errorS > 0));
+	assert ((*s > 0) && (*errorS > 0));
     
-    return (0);
-	}
+    	return (0);
+    	}
 
 //=============================================================================
 
@@ -365,31 +363,31 @@ int Diameter (float* s, float* errorS, FILE* diameter)
 void PrintCSV (float U[], float I[], FILE* CSV)
 	{
 	for (int i = 0; i < NMeas; i++)
-		{
-		assert ((0 <= i) && (i < NMeas));
+	    {
+	    assert ((0 <= i) && (i < NMeas));
 		
-		fprintf (CSV,"%4.1f %5.2f\n", U[i], I[i]);
-		}
-    fprintf (CSV,"\n");
-	}
+	    fprintf (CSV,"%4.1f %5.2f\n", U[i], I[i]);
+	    }
+    	fprintf (CSV,"\n");
+        }
 
 
 
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count summ of U^2, I^2, U * I 
-	\param U[]
+    \brief
+    Funcion that count summ of U^2, I^2, U * I 
+    \param U[]
     Array with data of voltage
     \param I[]
     Array with data of current
-	\param sumUI 
-	ammount of multiplication current and voltage
-	\param sumII 
-	ammount of current^2
-	\param resistanceAvg 
-	Averadge value resistance 
+    \param sumUI 
+    ammount of multiplication current and voltage
+    \param sumII 
+    ammount of current^2
+    \param resistanceAvg 
+    Averadge value resistance 
 */
 
 void Processing (float U[], float I[], float* sumUI, float* sumUU, float* sumII)
@@ -420,15 +418,15 @@ void Processing (float U[], float I[], float* sumUI, float* sumUU, float* sumII)
 */
 
 float Avg (float sumUI, float sumII, float resistanceAvg)
-	{
+    {
     assert ((sumUI > 0) && (sumII > 0));  
 
-	resistanceAvg = sumUI / sumII;
+    resistanceAvg = sumUI / sumII;
 
-	assert ((0 < resistanceAvg) && (resistanceAvg < MaxResistance));
+    assert ((0 < resistanceAvg) && (resistanceAvg < MaxResistance));
 
     return (resistanceAvg); 
-	}
+    }
 
 //=============================================================================
 
@@ -445,16 +443,16 @@ float Avg (float sumUI, float sumII, float resistanceAvg)
 	Value of random error for resistance 
 */
 float RandomError (float resistanceAvg, float sumUU,float sumII, float errorRrandom)
-	{
+    {
     assert ((resistanceAvg > 0) && (sumUU > 0) && (sumII > 0)); 
 
-	float sqrtN = sqrt(NMeas);
-	errorRrandom = (sqrt((sumUU / sumII) - (resistanceAvg * resistanceAvg))) / sqrtN;
+    float sqrtN = sqrt(NMeas);
+    errorRrandom = (sqrt((sumUU / sumII) - (resistanceAvg * resistanceAvg))) / sqrtN;
 
-	assert ((0 < errorRrandom) && (errorRrandom < MaxError));
+    assert ((0 < errorRrandom) && (errorRrandom < MaxError));
 
     return (errorRrandom);
-	}
+    }
 
 //=============================================================================
 
@@ -472,14 +470,14 @@ float RandomError (float resistanceAvg, float sumUU,float sumII, float errorRran
 */
 
 float System (float maxU, float maxI, float resistanceAvg, float errorRsystem)
-	{
-	assert ((maxU > 0) && (maxI > 0));	
-	errorRsystem = resistanceAvg * sqrt((ErrorU / maxU) * (ErrorU / maxU) + (ErrorI / maxI) * (ErrorI / maxI));
+    {
+    assert ((maxU > 0) && (maxI > 0));	
+    errorRsystem = resistanceAvg * sqrt((ErrorU / maxU) * (ErrorU / maxU) + (ErrorI / maxI) * (ErrorI / maxI));
 	
-	assert ((0 < errorRsystem) && (errorRsystem < MaxError));
+    assert ((0 < errorRsystem) && (errorRsystem < MaxError));
 
     return (errorRsystem);
-	}
+    }
 
 //=============================================================================
 
@@ -494,15 +492,15 @@ float System (float maxU, float maxI, float resistanceAvg, float errorRsystem)
 	Total value error for resistance
 */
 float TotalErrorR (float errorRrandom, float errorRsystem ,float errorR)
-	{
+    {
     assert ((errorRrandom > 0) && ( errorRsystem > 0));
 
-	errorR = sqrt(errorRrandom * errorRrandom + errorRsystem * errorRsystem);
+    errorR = sqrt(errorRrandom * errorRrandom + errorRsystem * errorRsystem);
 
     assert (errorR > 0);
 
     return (errorR);
-	}
+    }
 
 //=============================================================================
 
@@ -517,18 +515,18 @@ float TotalErrorR (float errorRrandom, float errorRsystem ,float errorR)
 	Value resistivity of wire
 	\param s
 	Value square of wire
-    \param length 
-    Length of wire
+        \param length 
+        Length of wire
 */
 void TotalR (float resistanceAvg, float* rTotal, float* ro, float s, int length)
-	{
+    {
     assert ((resistanceAvg > 0) && (s > 0) && (length > 0));
 
-	*rTotal = resistanceAvg + (resistanceAvg * resistanceAvg) / ResistanceU;
-	*ro = *rTotal * s / length;
+   *rTotal = resistanceAvg + (resistanceAvg * resistanceAvg) / ResistanceU;
+   *ro = *rTotal * s / length;
 
     assert ((rTotal > 0) && (ro > 0));
-	}
+    }
 
 //=============================================================================
 
@@ -545,16 +543,16 @@ void TotalR (float resistanceAvg, float* rTotal, float* ro, float s, int length)
 	Value error for resistivity
 	\param errorS
 	Value error for square of wire
-    \param length
-    Length of wire (cm)
+        \param length
+        Length of wire (cm)
     
 */
 
 void TotalErrorRo (float ro, float errorR, float rTotal, float* errorRo, float errorS, int length)
-	{
+    {
     assert ((ro > 0) && (errorR > 0) && (rTotal > 0) && (errorS > 0) && (length > 0));
     
-	*errorRo = ro * sqrt((errorR / rTotal) * (errorR / rTotal) + (errorS * errorS) + (ErrorL / length) * (ErrorL / length));
+    *errorRo = ro * sqrt((errorR / rTotal) * (errorR / rTotal) + (errorS * errorS) + (ErrorL / length) * (ErrorL / length));
 
     assert ( errorRo > 0);	
     }
@@ -566,7 +564,7 @@ void Print (float ro1, float ro2, float ro3, char* fileoutput, float errorRo1, f
     assert ((ro1 > 0) && (ro2 > 0) && (ro3 > 0) && (fileoutput != "\0") && (errorRo1 > 0) && (errorRo2 > 0) && (errorRo3 > 0) && (output != NULL));
 
     float roTotal = (ro1 + ro2 + ro3)/3;
-	float errorRoTotal = (errorRo1 + errorRo2 + errorRo3)/3;
+    float errorRoTotal = (errorRo1 + errorRo2 + errorRo3)/3;
 
  
     printf ("\nResult saved in file '%s'\n", fileoutput);
