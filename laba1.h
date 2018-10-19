@@ -259,17 +259,17 @@ int ReadAndCheck (float U[], float I[], int size, FILE* input)
     char str[1024] = "";
 
     for (int line = 0; line < size; line++)
-	    {
-	    assert ((0 <= line) && (line < size));
+        {
+        assert ((0 <= line) && (line < size));
 
-            fgets (str, sizeof (str) - 1, input);
+        fgets (str, sizeof (str) - 1, input);
 
-            int check = sscanf (str,"%f %f", &U[line], &I[line]);
+        int check = sscanf (str,"%f %f", &U[line], &I[line]);
 
-            assert ((check >= -1) && (check <= 2));
+        assert ((check >= -1) && (check <= 2));
 
-            if (check != 2) return (line + 1);
-            }
+        if (check != 2) return (line + 1);
+        }
 
     return (0);
     }
@@ -391,35 +391,34 @@ void PrintCSV (float U[], float I[], FILE* CSV)
 */
 
 void Processing (float U[], float I[], float* sumUI, float* sumUU, float* sumII)
-	{
-	for (int i = 0; i < NMeas; i++)                                       
-		{
+    {
+    for (int i = 0; i < NMeas; i++)                                       
+        {
+	assert ((0 <= i) && (i < NMeas));    
 
-        assert ((0 <= i) && (i < NMeas));    
-
-		*sumUI += U[i] * I[i];
-		*sumII += I[i] * I[i];
-		*sumUU += U[i] * U[i]; 
-		}
+	*sumUI += U[i] * I[i];
+	*sumII += I[i] * I[i];
+	*sumUU += U[i] * U[i]; 
 	}
+    }
 
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count average resistance of wire 
-	\details Funcion uses the lest squares method for obtain average resistance
-	\param sumUI 
-	ammount of multiplication current and voltage
-	\param sumII 
-	ammount of current^2
-	\param resistanceAvg 
-	Averadge value resistance 
+    \brief
+    Funcion that count average resistance of wire 
+    \details Funcion uses the lest squares method for obtain average resistance
+    \param sumUI 
+    ammount of multiplication current and voltage
+    \param sumII 
+    ammount of current^2
+    \param resistanceAvg 
+    Averadge value resistance 
 */
 
 float Avg (float sumUI, float sumII, float resistanceAvg)
     {
-    assert ((sumUI > 0) && (sumII > 0));  
+    assert ((sumUI - Tolerance > 0) && (sumII - Tolerance > 0));  
 
     resistanceAvg = sumUI / sumII;
 
@@ -431,16 +430,16 @@ float Avg (float sumUI, float sumII, float resistanceAvg)
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count random error for resistance of wire  
-	\param sumUU 
-	ammount of voltage^2
-	\param sumII 
-	ammount of current^2
-	\param resistanceAvg 
-	Averadge value resistance
-	\param errorRrandom
-	Value of random error for resistance 
+    \brief
+    Funcion that count random error for resistance of wire  
+    \param sumUU 
+    ammount of voltage^2
+    \param sumII 
+    ammount of current^2
+    \param resistanceAvg 
+    Averadge value resistance
+    \param errorRrandom
+    Value of random error for resistance 
 */
 float RandomError (float resistanceAvg, float sumUU,float sumII, float errorRrandom)
     {
@@ -457,16 +456,16 @@ float RandomError (float resistanceAvg, float sumUU,float sumII, float errorRran
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count systematic error for resistance of wire
-	\param maxU 
-	Max value of voltage 
-	\param maxI 
-	Max value of current 
-	\param resistanceAvg 
-	Averadge value resistance
-	\param errorRsystem
-	Value of systematic error for resistance   
+    \brief
+    Funcion that count systematic error for resistance of wire
+    \param maxU 
+    Max value of voltage 
+    \param maxI 
+    Max value of current 
+    \param resistanceAvg 
+    Averadge value resistance
+    \param errorRsystem
+    Value of systematic error for resistance   
 */
 
 float System (float maxU, float maxI, float resistanceAvg, float errorRsystem)
@@ -482,14 +481,14 @@ float System (float maxU, float maxI, float resistanceAvg, float errorRsystem)
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count total error for resistance of wire
-	\param errorRrandom 
-	Value of random error for resistance 
-	\param errorRsystem
-	Value of systematic error for resistance 
-	\param errorR 
-	Total value error for resistance
+    \brief
+    Funcion that count total error for resistance of wire
+    \param errorRrandom 
+    Value of random error for resistance 
+    \param errorRsystem
+    Value of systematic error for resistance 
+    \param errorR 
+    Total value error for resistance
 */
 float TotalErrorR (float errorRrandom, float errorRsystem ,float errorR)
     {
@@ -505,18 +504,18 @@ float TotalErrorR (float errorRrandom, float errorRsystem ,float errorR)
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count total resistance and resistivity of wire (l=20cm)  
-	\param resistanceAvg 
-	Averadge value resistance
-	\param rTotal 
-	Total resistance of wire
-	\param ro
-	Value resistivity of wire
-	\param s
-	Value square of wire
-        \param length 
-        Length of wire
+    \brief
+    Funcion that count total resistance and resistivity of wire (l=20cm)  
+    \param resistanceAvg 
+    Averadge value resistance
+    \param rTotal 
+    Total resistance of wire
+    \param ro
+    Value resistivity of wire
+    \param s
+    Value square of wire
+    \param length 
+    Length of wire
 */
 void TotalR (float resistanceAvg, float* rTotal, float* ro, float s, int length)
     {
@@ -531,21 +530,20 @@ void TotalR (float resistanceAvg, float* rTotal, float* ro, float s, int length)
 //=============================================================================
 
 /*!
-	\brief
-	Funcion that count total error for resistivity of wire (l=20cm)  
-	\param ro
-	Value resistivity of wire
-	\param errorR
-	Total value error for resistance of wire
-	\param Rtotal 
-	Total value resistance of wire
-	\param errorRo
-	Value error for resistivity
-	\param errorS
-	Value error for square of wire
-        \param length
-        Length of wire (cm)
-    
+    \brief
+    Funcion that count total error for resistivity of wire (l=20cm)  
+    \param ro
+    Value resistivity of wire
+    \param errorR
+    Total value error for resistance of wire
+    \param Rtotal 
+    Total value resistance of wire
+    \param errorRo
+    Value error for resistivity
+    \param errorS
+    Value error for square of wire
+    \param length
+    Length of wire (cm)
 */
 
 void TotalErrorRo (float ro, float errorR, float rTotal, float* errorRo, float errorS, int length)
@@ -566,7 +564,6 @@ void Print (float ro1, float ro2, float ro3, char* fileoutput, float errorRo1, f
     float roTotal = (ro1 + ro2 + ro3)/3;
     float errorRoTotal = (errorRo1 + errorRo2 + errorRo3)/3;
 
- 
     printf ("\nResult saved in file '%s'\n", fileoutput);
 
     fprintf (output,"\n\nTotal value resistivity (%3.2f+-%3.2f) * 10^(-4)Om * cm", roTotal, errorRoTotal); 
