@@ -24,23 +24,23 @@ const int Number1stMeas   = 0;
 const int Number2ndMeas   = 12;
                                         /// 1st string of 3ed 12 measurments
 const int Number3edMeas   = 24;
-    					                /// Max value resistance
+    					/// Max value resistance
 const float MaxResistance = 10; 
-    					                /// Max value error
+    					/// Max value error
 const float MaxError      = 1; 
-    					                /// Error voltmeter (mV)  
+    			                /// Error voltmeter (mV)  
 const float ErrorU        = 1.2;             		
-    					                /// Error ampermeter (mA) 
+    					/// Error ampermeter (mA) 
 const float ErrorI        = 1.2; 
                                         /// Error diametre (mm)
 const float ErrorD        = 0.01;                  	
-					                    /// Error length (cm)
+		                        /// Error length (cm)
 const float ErrorL        = 0.1;             		
-					                    /// Number value of diameter
+         		                /// Number value of diameter
 const int   NumD          = 10; 
-					                    /// Resistance voltmeter (Om) 
+                                        /// Resistance voltmeter (Om) 
 const int   ResistanceU   = 4000;  
-    					                /// Number Pi
+    			                /// Number Pi
 const float Pi            = 3.14;       				
                                         /// Exponenta
 const float e             = 2.71;
