@@ -11,16 +11,16 @@
 
 
 void ZeroArray (float array[], int size)
-	{
+    {
     assert (size > 0);
 
-	for (int i = 0; i < size; i++)
-        	{
-        	assert (0 <= i && i < size);
+    for (int i = 0; i < size; i++)
+        {
+        assert (0 <= i && i < size);
 
-        	array[i] = 0;
-		}
+        array[i] = 0;
 	}
+    }
 
 //=============================================================================
 
@@ -56,21 +56,21 @@ int Message (FILE* filecondition, char* name)
 */
 
 void Sort (float Array[], int size)
-	{	
-	float saveValue = 0;
+    {	
+    float saveValue = 0;
 	
     for (int j = 0; j < (size - 1); j++)
-		{
-		for (int i = j + 1; i < size; i++)
-			{
-			if (Array[i] < Array[j])
-				{
-				saveValue = Array[j];
-				Array[j] = Array[i];
-				Array[i] = saveValue;	
-				}
-			}
-		}
+        {
+	for (int i = j + 1; i < size; i++)
+	    {
+            if (Array[i] < Array[j])
+                {
+                saveValue = Array[j];
+                Array[j] = Array[i];
+                Array[i] = saveValue;	
+                }
+            }
+        }
     }
 
 
