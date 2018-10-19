@@ -1,13 +1,13 @@
 /*!
-	\file
-	Program is helper with laba 1.1.3
-	
+    \file
+    Program is helper with laba 1.1.3
+
         
-	//\details
-	It read file with data, process them and write result in 3 file.
+    //\details
+    It read file with data, process them and write result in 3 file.
     User must enter number of measurements
-	The data in the file should be stored in the format of number of measurements value of resistance 
-	If input or output files not found, program print you error.
+    The data in the file should be stored in the format of number of measurements value of resistance 
+    If input or output files not found, program print you error.
 */
 
 /*!
@@ -224,8 +224,10 @@ int Laba2 ()
 
 void Compute2 (FILE* input, int nMeas, FILE* outputSort, FILE* outputGraph, FILE* outputText) 
     {
-	float R[nMeas], deltaN1[N1], deltaN2[N2], OmegaN1[N1], OmegaN2[N2], Gausiana [nMeas];
-
+    float deltaN1[N1], deltaN2[N2], OmegaN1[N1], OmegaN2[N2];
+    float* R = (char*) calloc (nMeas, sizeof (char));
+    float* Gausiana = (char*) calloc (nMeas, sizeof (char));
+	
     ZeroArray (deltaN1, N1);
     ZeroArray (deltaN2, N2);
     ZeroArray (R, nMeas);
