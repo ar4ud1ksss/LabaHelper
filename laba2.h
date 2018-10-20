@@ -215,8 +215,12 @@ int Laba2 ()
         
     if (message == ERROR1) return (ERROR1);
 
-
     Compute2 (input, nMeas, outputSort, outputGraph, outputText);
+	
+    fclose (input);
+    fclose (outputSort);
+    fclose (outputText);
+    fclose (outputGraph);   
 
     } 
 
